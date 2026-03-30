@@ -1,9 +1,22 @@
 import type { ModuleOptions } from 'nuxt-security'
 
-const siteOrigin =
-  process.env.NUXT_PUBLIC_SITE_URL ||
-  process.env.NUXT_PUBLIC_APP_URL ||
-  'http://localhost:3000'
+/** CORS / security origin: must match the browser origin (no path). Align with `seo.config` defaults. */
+function resolveCorsOrigin(): string {
+  const raw =
+    process.env.NUXT_PUBLIC_SITE_URL ||
+    process.env.NUXT_PUBLIC_APP_URL ||
+    (process.env.NODE_ENV === 'production'
+      ? 'https://www.livebhoomi.com'
+      : 'http://localhost:3000')
+  try {
+    const u = raw.startsWith('http') ? raw : `https://${raw}`
+    return new URL(u).origin
+  } catch {
+    return raw
+  }
+}
+
+const siteOrigin = resolveCorsOrigin()
 
 /**
  * Merged by nuxt-security with `defaultSecurityConfig` (OWASP baseline).
@@ -24,6 +37,11 @@ export const securityConfig: Partial<ModuleOptions> = {
     preflight: { statusCode: 204 },
   },
   headers: {
+    /**
+     * Default `credentialless` breaks many cross-origin images/tiles (listings, OSM/Leaflet)
+     * that do not send `Cross-Origin-Resource-Policy`. Disable unless you rely on COEP isolation.
+     */
+    crossOriginEmbedderPolicy: false,
     contentSecurityPolicy: {
       'img-src': [
         "'self'",
