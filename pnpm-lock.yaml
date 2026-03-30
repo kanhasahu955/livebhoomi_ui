@@ -71,6 +71,9 @@ importers:
       fuse.js:
         specifier: ^7.1.0
         version: 7.1.0
+      leaflet:
+        specifier: ^1.9.4
+        version: 1.9.4
       lodash-es:
         specifier: ^4.17.23
         version: 4.17.23
