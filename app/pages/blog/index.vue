@@ -343,7 +343,7 @@ function clearFilters() {
         </p>
         <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
           <NuxtLink
-            to="/#home-search"
+            to="/search"
             class="lb-btn-primary justify-center"
           >
             Start search

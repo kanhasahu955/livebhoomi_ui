@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useWindowScroll } from '@vueuse/core'
-import HeroIntentDecor from '~/components/home/HeroIntentDecor.vue'
 import HeroLineArtBackdrop from '~/components/home/HeroLineArtBackdrop.vue'
 import {
   intentHeroBackgrounds,
   type SearchIntent,
 } from '~/config/propertySearch.config'
 
-const { y: scrollY } = useWindowScroll()
+useSeoMeta({
+  title: 'Search & query',
+  description:
+    'Search buy, rent, commercial, PG, and plots across Indian cities. Same filters as the home search — open listings when you are ready.',
+})
 
 const {
   intent,
@@ -30,16 +32,10 @@ const {
   intentTabs,
   cityOptions,
   bhkChips,
-} = usePropertySearchForm()
-
-/** When user has scrolled past hero top, flatten bottom edge (straight join to next section). */
-const HERO_BOTTOM_STRAIGHT_AFTER_PX = 36
-
-const heroBottomRadiusClass = computed(() =>
-  scrollY.value > HERO_BOTTOM_STRAIGHT_AFTER_PX
-    ? 'rounded-b-none'
-    : 'rounded-b-[1.75rem] sm:rounded-b-[2.25rem] md:rounded-b-[2.25rem]',
-)
+} = usePropertySearchForm({
+  syncFromRoute: true,
+  defaultIntentFromRoute: 'pg',
+})
 
 const heroBgStyle = computed(() => ({
   background: intentHeroBackgrounds[intent.value],
@@ -83,18 +79,15 @@ const subheadline = computed(() => {
 
 <template>
   <section
-    class="hero-surface relative isolate flex min-h-[100svh] flex-col text-white motion-safe:transition-[border-radius] motion-safe:duration-500 motion-safe:ease-out"
-    :class="heroBottomRadiusClass"
+    class="hero-surface relative isolate min-h-[min(100svh,56rem)] flex flex-col rounded-b-[1.75rem] text-white sm:rounded-b-[2.25rem]"
   >
-    <!-- subtle top shine -->
     <div
       class="pointer-events-none absolute inset-x-0 top-0 z-[2] h-32 bg-gradient-to-b from-white/12 to-transparent"
       aria-hidden="true"
     />
 
     <div
-      class="pointer-events-none absolute inset-0 overflow-hidden motion-safe:transition-[border-radius] motion-safe:duration-500 motion-safe:ease-out"
-      :class="heroBottomRadiusClass"
+      class="pointer-events-none absolute inset-0 overflow-hidden rounded-b-[inherit]"
       aria-hidden="true"
     >
       <div
@@ -112,90 +105,35 @@ const subheadline = computed(() => {
     </div>
 
     <div
-      class="relative z-10 flex w-full flex-1 flex-col justify-start px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] pt-[calc(4rem+env(safe-area-inset-top))] sm:px-5 sm:pb-[calc(1.25rem+env(safe-area-inset-bottom))] sm:pt-[calc(4.25rem+env(safe-area-inset-top))] md:px-6 lg:px-8"
+      class="relative z-10 flex w-full flex-1 flex-col px-4 pb-12 pt-[calc(4.75rem+env(safe-area-inset-top))] sm:px-6 lg:px-8"
     >
-      <div
-        class="mx-auto flex w-full max-w-4xl flex-1 flex-col xl:max-w-5xl 2xl:max-w-6xl"
-      >
-        <!-- Eyebrow stats -->
+      <div class="mx-auto w-full max-w-3xl">
         <p
-          class="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-white/55 sm:mb-3 sm:text-xs"
+          class="mb-2 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-white/55 sm:text-xs"
         >
-          Live listings · Saved alerts · Verified owners
+          Search & query
         </p>
-
         <h1
-          :key="`${intent}-head`"
-          v-motion
-          class="mx-auto max-w-4xl text-center text-[clamp(1.55rem,4.8vw,2.65rem)] font-bold leading-[1.12] tracking-tight text-white text-balance"
-          :initial="{ opacity: 0, y: 20 }"
-          :enter="{
-            opacity: 1,
-            y: 0,
-            transition: { type: 'spring', stiffness: 380, damping: 32 },
-          }"
+          class="text-center text-[clamp(1.45rem,4vw,2.25rem)] font-bold leading-tight tracking-tight text-white text-balance"
         >
           {{ headline }}
         </h1>
-
         <p
-          :key="`${intent}-sub`"
-          class="mx-auto mt-2 max-w-2xl text-pretty text-center text-sm leading-relaxed text-white/80 sm:mt-3 sm:text-base"
+          class="mx-auto mt-2 max-w-2xl text-pretty text-center text-sm leading-relaxed text-white/80 sm:text-base"
         >
           {{ subheadline }}
         </p>
-
-        <!-- Trust chips -->
-        <div
-          class="mx-auto mt-3 flex max-w-xl flex-wrap items-center justify-center gap-1.5 sm:mt-4 sm:gap-2"
-        >
-          <span
-            class="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-medium backdrop-blur-sm sm:text-xs"
+        <p class="mt-3 text-center text-xs text-white/60">
+          <NuxtLink
+            to="/"
+            class="font-medium text-white/90 underline decoration-white/30 underline-offset-4 hover:text-white"
           >
-            <svg class="size-3.5 shrink-0 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            Verified listings
-          </span>
-          <span
-            class="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-medium backdrop-blur-sm sm:text-xs"
-          >
-            <svg class="size-3.5 shrink-0 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round" />
-              <circle cx="12" cy="12" r="10" />
-            </svg>
-            RERA-aware filters
-          </span>
-          <span
-            class="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-[11px] font-medium backdrop-blur-sm sm:text-xs"
-          >
-            <svg class="size-3.5 shrink-0 opacity-90" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke-linecap="round" />
-            </svg>
-            Free owner listings
-          </span>
-        </div>
+            ← Back to home
+          </NuxtLink>
+        </p>
 
         <div
-          class="pointer-events-none relative z-20 mx-auto mb-3 mt-4 flex h-[7.5rem] w-full max-w-sm justify-center px-2 sm:mb-3 sm:mt-5 sm:h-[10rem] sm:max-w-md md:h-[11.5rem] md:max-w-lg lg:max-w-xl"
-          aria-hidden="true"
-        >
-          <Transition name="hero-deco" mode="out-in">
-            <HeroIntentDecor :key="intent" :intent="intent" placement="center" />
-          </Transition>
-        </div>
-
-        <!-- Main search card — in-page anchor for /#home-search -->
-        <div
-          id="home-search"
-          v-motion
-          class="relative mx-auto w-full max-w-3xl scroll-mt-28 overflow-hidden rounded-[1.35rem] border border-white/25 bg-slate-950/50 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:rounded-3xl sm:scroll-mt-32"
-          :initial="{ opacity: 0, y: 24 }"
-          :enter="{
-            opacity: 1,
-            y: 0,
-            transition: { type: 'spring', stiffness: 300, damping: 30, delay: 60 },
-          }"
+          class="relative mx-auto mt-8 w-full max-w-3xl overflow-hidden rounded-[1.35rem] border border-white/25 bg-slate-950/50 shadow-[0_25px_80px_-20px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:rounded-3xl"
         >
           <div
             class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"
@@ -203,7 +141,6 @@ const subheadline = computed(() => {
           />
 
           <div class="p-3.5 sm:p-5 md:p-6">
-            <!-- Segmented intent control -->
             <div
               class="flex flex-wrap items-center justify-center gap-1 rounded-2xl border border-white/15 bg-black/20 p-1 sm:gap-1 sm:p-1.5"
               role="tablist"
@@ -228,9 +165,8 @@ const subheadline = computed(() => {
               </button>
             </div>
 
-            <!-- Search field -->
             <div class="mt-4 sm:mt-5">
-              <label class="sr-only" for="hero-locality-input">Locality or landmark</label>
+              <label class="sr-only" for="search-locality-input">Locality or landmark</label>
               <div
                 class="flex min-h-[3.25rem] w-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/15 ring-1 ring-slate-200/80 sm:min-h-[3.5rem] sm:flex-row sm:items-stretch sm:rounded-full sm:p-1"
               >
@@ -260,7 +196,7 @@ const subheadline = computed(() => {
                     </svg>
                   </span>
                   <input
-                    id="hero-locality-input"
+                    id="search-locality-input"
                     v-model="locality"
                     type="search"
                     class="min-w-0 flex-1 border-0 bg-transparent py-1 text-sm text-heading placeholder:text-muted focus:ring-0"
@@ -288,7 +224,7 @@ const subheadline = computed(() => {
               <div
                 class="mt-2 flex flex-wrap items-center justify-between gap-2 text-[11px] text-white/55 sm:text-xs"
               >
-                <span>Press <kbd class="rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-mono text-[10px] text-white/80">Enter</kbd> to search</span>
+                <span>Press <kbd class="rounded border border-white/20 bg-white/10 px-1.5 py-0.5 font-mono text-[10px] text-white/80">Enter</kbd> to open listings</span>
                 <button
                   v-if="hasActiveFilters"
                   type="button"
@@ -300,7 +236,6 @@ const subheadline = computed(() => {
               </div>
             </div>
 
-            <!-- Quick localities -->
             <div class="mt-4">
               <p class="mb-2 text-[11px] font-semibold uppercase tracking-wide text-white/50">
                 Popular in {{ cityLabel }}
@@ -323,7 +258,6 @@ const subheadline = computed(() => {
               </div>
             </div>
 
-            <!-- BHK quick chips -->
             <div v-if="showBhkChips" class="mt-4">
               <p class="mb-2 text-[11px] font-semibold uppercase tracking-wide text-white/50">
                 BHK
@@ -346,7 +280,6 @@ const subheadline = computed(() => {
               </div>
             </div>
 
-            <!-- Secondary filters -->
             <div class="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div class="relative">
                 <label class="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-white/50 sm:text-xs">
@@ -404,109 +337,7 @@ const subheadline = computed(() => {
             </div>
           </div>
         </div>
-
-        <!-- Owner CTA: full-width strip, above Premium, stays in first screen on most laptops -->
-        <div class="mx-auto mt-4 w-full max-w-3xl sm:mt-5">
-          <NuxtLink
-            to="/post-property"
-            class="lb-outline-owner min-h-[3rem] w-full min-w-0 shadow-lg shadow-black/20 sm:min-h-[3.25rem] sm:px-6"
-          >
-            <span>Are you a Property Owner?</span>
-            <span class="font-bold">Post — Sell / Rent for FREE</span>
-            <span class="text-white/70" aria-hidden="true">→</span>
-          </NuxtLink>
-        </div>
-
-        <!-- Premium upsell -->
-        <div
-          v-motion
-          class="mx-auto mt-4 w-full max-w-3xl sm:mt-5"
-          :initial="{ opacity: 0, y: 18 }"
-          :enter="{
-            opacity: 1,
-            y: 0,
-            transition: { type: 'spring', stiffness: 280, damping: 30, delay: 120 },
-          }"
-        >
-          <NuxtLink
-            to="/premium"
-            class="group flex overflow-hidden rounded-2xl border border-white/20 bg-gradient-to-r from-slate-900/90 via-hero to-blue-800/95 shadow-xl ring-1 ring-white/10 transition duration-300 hover:border-white/30 hover:shadow-2xl active:scale-[0.99] motion-reduce:transform-none sm:rounded-3xl"
-          >
-            <div
-              class="flex min-w-0 flex-1 flex-col justify-center gap-1.5 px-4 py-4 sm:px-6 sm:py-5"
-            >
-              <div class="flex flex-wrap items-center gap-2">
-                <span class="text-sm font-semibold text-white sm:text-base">
-                  LiveBhoomi Premium
-                </span>
-                <span
-                  class="rounded-md bg-gradient-to-r from-pink-500/90 to-rose-500/90 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm"
-                >
-                  New
-                </span>
-              </div>
-              <p class="text-xs leading-relaxed text-white/85 sm:text-sm">
-                Instant alerts, deeper filters, and priority help when you’re ready to decide.
-              </p>
-              <span
-                class="inline-flex w-fit items-center gap-1 text-xs font-semibold text-white/95 transition group-hover:gap-2"
-              >
-                See benefits
-                <span aria-hidden="true">→</span>
-              </span>
-            </div>
-            <div
-              class="relative hidden w-28 shrink-0 sm:flex sm:w-36 md:w-44"
-              aria-hidden="true"
-            >
-              <div
-                class="absolute inset-0 bg-gradient-to-l from-transparent via-white/5 to-white/10"
-              />
-              <svg
-                class="relative m-auto h-full w-[85%] text-white/35"
-                viewBox="0 0 200 120"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect x="36" y="28" width="128" height="72" rx="12" stroke="currentColor" stroke-width="1.5" />
-                <path
-                  d="M52 78 L76 54 L100 70 L124 46 L148 62"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <circle cx="148" cy="62" r="4" fill="currentColor" />
-              </svg>
-            </div>
-          </NuxtLink>
-        </div>
-
-        <!-- Spacer so last card clears safe area when column is shorter than viewport -->
-        <div class="min-h-2 flex-1 sm:min-h-4" aria-hidden="true" />
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.hero-deco-enter-active,
-.hero-deco-leave-active {
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
-}
-
-.hero-deco-enter-from,
-.hero-deco-leave-to {
-  opacity: 0;
-  transform: translateY(10px) scale(0.98);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-deco-enter-active,
-  .hero-deco-leave-active {
-    transition: none;
-  }
-}
-</style>

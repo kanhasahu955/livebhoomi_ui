@@ -27,7 +27,13 @@ const route = useRoute()
       v-else
       class="mt-8 rounded-xl border border-dashed border-border bg-nav-active/30 p-10 text-center text-muted"
     >
-      Use the search on the home page or pick a city from the header.
+      <p>
+        Use
+        <NuxtLink to="/search" class="font-semibold text-hero underline decoration-hero/30 underline-offset-2">
+          Search & query
+        </NuxtLink>
+        , the home hero search, or pick a journey from the header.
+      </p>
     </div>
   </div>
 </template>

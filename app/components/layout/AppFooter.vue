@@ -21,8 +21,9 @@ const cols = [
   {
     title: 'Legal',
     links: [
-      { label: 'Privacy', to: '/privacy' },
-      { label: 'Terms', to: '/terms' },
+      { label: 'Overview', to: '/legal' },
+      { label: 'Privacy policy', to: '/privacy' },
+      { label: 'Terms of use', to: '/terms' },
     ],
   },
 ] as const

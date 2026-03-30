@@ -4,6 +4,20 @@
  */
 export type SearchIntent = 'buy' | 'rent' | 'commercial' | 'pg' | 'plots'
 
+/** CSS `background` values — shared by home hero and `/search`. */
+export const intentHeroBackgrounds: Record<SearchIntent, string> = {
+  buy:
+    'linear-gradient(122deg, var(--lb-primary) 0%, var(--lb-hero-hover) 50%, var(--lb-primary) 100%)',
+  rent:
+    'linear-gradient(126deg, var(--lb-primary) 0%, var(--lb-hero-hover) 48%, var(--lb-primary) 100%)',
+  commercial:
+    'linear-gradient(124deg, var(--lb-primary) 0%, var(--lb-hero-hover) 52%, var(--lb-primary) 100%)',
+  pg:
+    'linear-gradient(130deg, var(--lb-primary) 0%, var(--lb-hero-hover) 49%, var(--lb-primary) 100%)',
+  plots:
+    'linear-gradient(120deg, var(--lb-primary) 0%, var(--lb-hero-hover) 51%, var(--lb-primary) 100%)',
+}
+
 export const searchIntents: SearchIntent[] = [
   'buy',
   'rent',
@@ -137,12 +151,16 @@ export function buildPropertiesQuery(state: PropertySearchFormState) {
 }
 
 /** Hydrate form from `/properties` or `/search` query (strings only). */
-export function parseSearchFromRouteQuery(query: Record<string, unknown>) {
+export function parseSearchFromRouteQuery(
+  query: Record<string, unknown>,
+  options?: { defaultIntent?: SearchIntent },
+) {
+  const fallbackIntent = options?.defaultIntent ?? 'buy'
   const intentRaw = query.intent
   const intent =
     typeof intentRaw === 'string' && isSearchIntent(intentRaw)
       ? intentRaw
-      : ('buy' as SearchIntent)
+      : fallbackIntent
 
   const cityRaw = query.city
   const city =

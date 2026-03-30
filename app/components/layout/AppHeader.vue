@@ -20,6 +20,7 @@ const navGroups: NavGroup[] = [
     defaultTo: '/properties',
     children: [
       { label: 'Flats & houses for sale', to: '/properties' },
+      { label: 'Search & query', to: '/search' },
       { label: 'New projects', to: '/projects' },
       { label: 'Plots & land', to: '/properties?intent=plots' },
     ],

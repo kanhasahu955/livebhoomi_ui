@@ -14,8 +14,8 @@ type Resource = {
 const resources: Resource[] = [
   {
     label: 'Search & query',
-    description: 'Jump to the hero search or open the full listings view with your filters.',
-    to: '/#home-search',
+    description: 'Full search form with the same filters as home — then open listings.',
+    to: '/search',
     icon: 'search',
   },
   {
