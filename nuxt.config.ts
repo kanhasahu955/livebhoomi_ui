@@ -45,6 +45,7 @@ export default defineNuxtConfig({
     },
     { path: '~/components/layout', pathPrefix: false },
     { path: '~/components/home', pathPrefix: false },
+    { path: '~/components/map', pathPrefix: false },
   ],
 
   /** nuxt-site-config — canonical URL/name for sitemap + schema.org */
@@ -113,7 +114,7 @@ export default defineNuxtConfig({
   },
 
   colorMode: {
-    preference: 'light',
+    preference: 'system',
     fallback: 'light',
     classSuffix: '',
     storageKey: 'livebhoomi-theme',

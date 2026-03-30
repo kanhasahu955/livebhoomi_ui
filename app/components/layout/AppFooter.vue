@@ -6,7 +6,9 @@ const cols = [
     title: 'Company',
     links: [
       { label: 'About us', to: '/about' },
+      { label: 'Pricing', to: '/pricing' },
       { label: 'Contact', to: '/contact' },
+      { label: 'Interactive map', to: '/map' },
       { label: 'Careers', to: '/careers' },
       { label: 'Blog', to: '/blog' },
     ],
@@ -30,7 +32,11 @@ const cols = [
 </script>
 
 <template>
-  <footer class="border-t border-border bg-card mt-auto">
+  <footer class="relative mt-auto border-t border-border bg-card">
+    <div
+      class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-hero/35 to-transparent"
+      aria-hidden="true"
+    />
     <div
       class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-14"
     >
@@ -56,9 +62,11 @@ const cols = [
             <li v-for="link in col.links" :key="link.to">
               <NuxtLink
                 :to="link.to"
-                class="text-sm text-heading/80 hover:text-hero transition"
+                class="group text-sm text-heading/80 transition hover:text-hero"
               >
-                {{ link.label }}
+                <span class="border-b border-transparent pb-0.5 transition group-hover:border-hero/40">
+                  {{ link.label }}
+                </span>
               </NuxtLink>
             </li>
           </ul>

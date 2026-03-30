@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex min-h-screen min-h-[100dvh] flex-col bg-surface text-body antialiased">
+  <div class="relative flex min-h-screen min-h-[100dvh] flex-col bg-surface text-body antialiased selection:bg-hero/20">
     <AppHeader />
     <!--
       Pages without `.hero-surface` (home hero): gradient band under the overlay header

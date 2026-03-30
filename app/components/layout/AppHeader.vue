@@ -72,15 +72,33 @@ const headerRootClass = computed(() =>
 
 const headerBarClass = computed(() =>
   isScrolled.value
-    ? 'lb-header-float w-full rounded-none rounded-b-[1.25rem] border-b border-white/20 pt-[env(safe-area-inset-top)] shadow-lg shadow-slate-900/30 backdrop-blur-md sm:rounded-b-[1.75rem]'
-    : 'w-full border-b border-white/10 bg-transparent backdrop-blur-[6px]',
+    ? 'lb-header-float w-full rounded-none rounded-b-[1.25rem] border-b border-white/25 pt-[env(safe-area-inset-top)] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.35)] ring-1 ring-white/15 backdrop-blur-xl backdrop-saturate-150 sm:rounded-b-[1.75rem]'
+    : 'w-full border-b border-white/10 bg-transparent backdrop-blur-md',
 )
 
 const headerRowClass =
   'mx-auto flex h-14 max-w-7xl items-center px-4 sm:h-[3.75rem] sm:px-6 lg:px-8'
 
 const navTriggerClass =
-  'inline-flex cursor-pointer items-center gap-0.5 rounded-md px-2 py-2 text-sm font-medium text-white/92 transition hover:bg-white/10 hover:text-white xl:px-2.5'
+  'group inline-flex cursor-pointer items-center gap-1 rounded-full px-3 py-2 text-sm font-semibold tracking-tight text-white/95 transition duration-200 hover:bg-white/15 hover:text-white xl:px-3.5'
+
+const navShellClass = computed(() =>
+  isScrolled.value
+    ? 'rounded-full border border-white/20 bg-white/10 px-1 py-1 shadow-inner shadow-black/10 backdrop-blur-md'
+    : 'rounded-full border border-white/20 bg-white/10 px-1 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)] backdrop-blur-xl',
+)
+
+/** Map & pricing live only in the header (not home cards). */
+const headerFeatureLinks = [
+  { label: 'Map explore', to: '/map' },
+  { label: 'Pricing', to: '/pricing' },
+] as const
+
+const mobileQuickLinks = [
+  { label: 'Search', to: '/search', icon: 'search' },
+  { label: 'Map explore', to: '/map', icon: 'map' },
+  { label: 'Pricing', to: '/pricing', icon: 'tag' },
+] as const
 </script>
 
 <template>
@@ -104,9 +122,12 @@ const navTriggerClass =
           />
         </NuxtLink>
 
-        <div class="hidden min-w-0 flex-1 justify-center px-2 lg:flex">
+        <div
+          class="hidden min-w-0 flex-1 items-center justify-center gap-2 px-2 lg:flex xl:gap-3"
+        >
           <nav
-            class="flex max-w-full flex-wrap items-center justify-center gap-0.5 xl:gap-1"
+            :class="navShellClass"
+            class="flex max-w-full flex-wrap items-center justify-center gap-0.5 xl:gap-0.5"
             aria-label="Primary"
           >
             <el-dropdown
@@ -115,6 +136,8 @@ const navTriggerClass =
               trigger="hover"
               placement="bottom"
               :popper-class="ddPopperClass"
+              :show-timeout="80"
+              :hide-timeout="120"
             >
               <span
                 :class="navTriggerClass"
@@ -123,7 +146,7 @@ const navTriggerClass =
               >
                 {{ group.label }}
                 <svg
-                  class="h-3 w-3 opacity-75"
+                  class="h-3 w-3 opacity-80 transition duration-200 group-hover:translate-y-px group-hover:opacity-100"
                   viewBox="0 0 12 12"
                   fill="currentColor"
                   aria-hidden="true"
@@ -147,11 +170,31 @@ const navTriggerClass =
               </template>
             </el-dropdown>
           </nav>
+          <div
+            class="hidden h-8 w-px shrink-0 bg-white/25 lg:block"
+            aria-hidden="true"
+          />
+          <nav
+            class="hidden items-center gap-0.5 lg:flex"
+            aria-label="Map and pricing"
+          >
+            <NuxtLink
+              v-for="link in headerFeatureLinks"
+              :key="link.to"
+              :to="link.to"
+              :class="navTriggerClass"
+              :title="link.label"
+            >
+              <span class="xl:hidden">{{ link.label === 'Map explore' ? 'Map' : link.label }}</span>
+              <span class="hidden xl:inline">{{ link.label }}</span>
+            </NuxtLink>
+          </nav>
         </div>
 
         <div
           class="relative z-10 ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2.5"
         >
+          <ColorModeToggle :popper-class="ddPopperClass" />
           <button
             type="button"
             class="lb-link-underline-light hidden sm:inline"
@@ -192,12 +235,13 @@ const navTriggerClass =
 
           <button
             type="button"
-            class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl p-2 text-white hover:bg-white/10 lg:hidden"
+            class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-xl border border-white/20 bg-white/10 p-2 text-white shadow-inner shadow-black/10 backdrop-blur-sm transition hover:bg-white/15 lg:hidden"
             :aria-expanded="mobileOpen"
-            aria-label="Open menu"
+            :aria-label="mobileOpen ? 'Close menu' : 'Open menu'"
             @click="mobileOpen = !mobileOpen"
           >
             <svg
+              v-if="!mobileOpen"
               xmlns="http://www.w3.org/2000/svg"
               class="h-6 w-6"
               fill="none"
@@ -212,34 +256,76 @@ const navTriggerClass =
                 d="M4 6h16M4 12h16M4 18h16"
               />
             </svg>
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
         </div>
       </div>
     </div>
 
-    <div
-      v-show="mobileOpen"
-      class="w-full lg:hidden"
-    >
+    <Transition name="lb-mobile-drawer">
       <div
-        class="border-t px-4 py-4"
-        :class="
-          isScrolled
-            ? 'lb-header-float rounded-none border-t border-white/20 shadow-lg'
-            : 'border-white/15 bg-slate-950/75 backdrop-blur-xl'
-        "
+        v-if="mobileOpen"
+        class="w-full lg:hidden"
       >
-        <nav class="flex flex-col gap-3" aria-label="Mobile">
+        <div
+          class="border-t px-4 py-5"
+          :class="
+            isScrolled
+              ? 'lb-header-float rounded-b-2xl border-t border-white/20 shadow-2xl shadow-black/25'
+              : 'border-white/15 bg-slate-950/80 backdrop-blur-2xl'
+          "
+        >
+          <p class="mb-2 text-[10px] font-bold uppercase tracking-[0.15em] text-white/45">
+            Quick links
+          </p>
+          <div class="mb-5 flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <NuxtLink
+              v-for="q in mobileQuickLinks"
+              :key="q.to"
+              :to="q.to"
+              class="inline-flex shrink-0 items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-2 text-xs font-semibold text-white shadow-sm backdrop-blur-sm transition hover:bg-white/20"
+              @click="mobileOpen = false"
+            >
+              <svg v-if="q.icon === 'search'" class="size-3.5 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" stroke-linecap="round" />
+              </svg>
+              <svg v-else-if="q.icon === 'map'" class="size-3.5 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 20l-6-3V4l6 3 6-3 6 3v13l-6 3-6-3z" stroke-linejoin="round" />
+                <path d="M9 10V20M15 7v13" stroke-linejoin="round" />
+              </svg>
+              <svg v-else class="size-3.5 opacity-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              {{ q.label }}
+            </NuxtLink>
+          </div>
+          <nav class="flex flex-col gap-3" aria-label="Mobile">
           <button
             type="button"
-            class="w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-white hover:bg-white/10"
+            class="w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium text-white transition hover:bg-white/10"
             @click="go('/contact'); mobileOpen = false"
           >
             Download App
           </button>
           <button
             type="button"
-            class="w-full rounded-lg px-3 py-2.5 text-left text-sm font-medium text-white hover:bg-white/10"
+            class="w-full rounded-xl px-3 py-2.5 text-left text-sm font-medium text-white transition hover:bg-white/10"
             @click="go('/shortlist'); mobileOpen = false"
           >
             Shortlist
@@ -249,20 +335,20 @@ const navTriggerClass =
             :key="group.label"
             class="space-y-1"
           >
-            <p class="text-[11px] font-bold uppercase tracking-wider text-white/50">
+            <p class="text-[11px] font-bold uppercase tracking-[0.12em] text-white/50">
               {{ group.label }}
             </p>
             <NuxtLink
               v-for="child in group.children"
               :key="child.to"
               :to="child.to"
-              class="rounded-lg px-3 py-2 text-sm font-medium text-white hover:bg-white/10"
+              class="rounded-xl px-3 py-2.5 text-sm font-medium text-white/95 transition hover:bg-white/10"
               @click="mobileOpen = false"
             >
               {{ child.label }}
             </NuxtLink>
           </div>
-          <div class="mt-2 flex flex-col gap-2 border-t border-white/15 pt-3">
+          <div class="mt-3 flex flex-col gap-2 border-t border-white/15 pt-4">
             <NuxtLink
               to="/post-property"
               class="lb-btn-inverse w-full justify-center py-3 sm:w-auto"
@@ -280,12 +366,31 @@ const navTriggerClass =
             </NuxtLink>
           </div>
         </nav>
+        </div>
       </div>
-    </div>
+    </Transition>
   </header>
 </template>
 
 <style>
+.lb-mobile-drawer-enter-active,
+.lb-mobile-drawer-leave-active {
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+}
+.lb-mobile-drawer-enter-from,
+.lb-mobile-drawer-leave-to {
+  opacity: 0;
+  transform: translateY(-0.5rem);
+}
+@media (prefers-reduced-motion: reduce) {
+  .lb-mobile-drawer-enter-active,
+  .lb-mobile-drawer-leave-active {
+    transition: none;
+  }
+}
+
 /* Floated scrolled header — purple → primary blue (LiveBhoomi tokens). */
 .lb-header-float {
   background: linear-gradient(
@@ -299,11 +404,16 @@ const navTriggerClass =
 .lb-dd-popper.el-popper {
   --el-bg-color-overlay: #ffffff;
   --el-border-color-light: var(--lb-border);
-  border-radius: 0.75rem;
-  padding: 0.25rem 0;
+  border-radius: 1rem;
+  padding: 0.35rem 0;
   box-shadow:
-    0 18px 40px -12px rgb(15 23 42 / 0.18),
-    0 0 0 1px rgb(15 23 42 / 0.06);
+    0 22px 50px -14px rgb(15 23 42 / 0.2),
+    0 0 0 1px rgb(15 23 42 / 0.05);
+}
+.lb-dd-popper .el-dropdown-menu__item {
+  border-radius: 0.5rem;
+  margin: 0 0.35rem;
+  padding: 0.55rem 0.85rem;
 }
 html.dark .lb-dd-popper.el-popper,
 .dark .lb-dd-popper.el-popper {

@@ -27,6 +27,12 @@
     color: var(--lb-body);
     background-color: var(--lb-surface);
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--lb-primary) 28%, transparent);
+    color: var(--lb-foreground);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -41,15 +47,52 @@
  */
 @layer components {
   .lb-btn-primary {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-hero px-4 py-2.5 text-sm font-semibold text-white shadow-md transition duration-200 ease-out hover:bg-hero-hover active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hero/45 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none sm:px-5;
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-hero/25 transition duration-200 ease-out active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hero/50 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none sm:px-5;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--lb-primary) 92%, white) 0%,
+      var(--lb-primary) 48%,
+      var(--lb-hero-hover) 100%
+    );
+  }
+  .lb-btn-primary:hover {
+    filter: brightness(1.06);
+    box-shadow:
+      0 12px 28px -8px color-mix(in srgb, var(--lb-primary) 45%, transparent),
+      0 0 0 1px color-mix(in srgb, white 22%, transparent);
   }
 
   .lb-btn-primary-lg {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-full bg-hero px-6 py-3 text-sm font-bold text-white shadow-md transition duration-200 ease-out hover:bg-hero-hover active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hero/45 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none sm:px-10 sm:text-base;
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full px-6 py-3 text-sm font-bold text-white shadow-lg shadow-hero/25 transition duration-200 ease-out active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hero/50 focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none sm:px-10 sm:text-base;
+    background: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--lb-primary) 88%, white) 0%,
+      var(--lb-primary) 45%,
+      var(--lb-hero-hover) 100%
+    );
+  }
+  .lb-btn-primary-lg:hover {
+    filter: brightness(1.06);
+    box-shadow:
+      0 16px 36px -10px color-mix(in srgb, var(--lb-primary) 50%, transparent),
+      0 0 0 1px color-mix(in srgb, white 20%, transparent);
   }
 
   .lb-btn-surface {
-    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold text-heading shadow-sm transition duration-200 ease-out hover:bg-muted/40 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hero/35 focus-visible:ring-offset-2 motion-reduce:transform-none;
+    @apply inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold text-heading shadow-sm transition duration-200 ease-out hover:border-hero/25 hover:bg-nav-active/60 hover:shadow-md active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-hero/35 focus-visible:ring-offset-2 motion-reduce:transform-none dark:hover:bg-hero/10;
+  }
+
+  /** Frosted surface — headers, drawers, overlays */
+  .lb-glass-header {
+    @apply border border-white/20 bg-white/10 shadow-[0_8px_32px_-8px_rgba(0,0,0,0.25)] backdrop-blur-xl backdrop-saturate-150;
+  }
+
+  /** Marketing cards — depth without heavy borders */
+  .lb-card-elevated {
+    @apply rounded-2xl border border-border/80 bg-card shadow-[0_2px_8px_-2px_rgba(15,23,42,0.06),0_12px_32px_-12px_rgba(15,23,42,0.12)] transition duration-300 ease-out dark:border-border dark:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.4),0_12px_40px_-16px_rgba(0,0,0,0.45)];
+  }
+  .lb-card-elevated:hover {
+    @apply border-hero/20 shadow-[0_12px_40px_-12px_rgba(37,99,235,0.18)] dark:border-hero/30;
   }
 
   .lb-btn-inverse {
