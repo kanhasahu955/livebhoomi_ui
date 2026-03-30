@@ -1,0 +1,114 @@
+/**
+ * Element Plus — mapped to LiveBhoomi.com tokens (`livebhoomi-tokens.css`).
+ * @see https://element-plus.org/en-US/guide/theming.html
+ */
+:root {
+  --el-color-primary: var(--lb-primary);
+  --el-color-primary-light-3: #3b82f6;
+  --el-color-primary-light-5: #60a5fa;
+  --el-color-primary-light-7: #93c5fd;
+  --el-color-primary-light-8: #bfdbfe;
+  --el-color-primary-light-9: #eff6ff;
+  --el-color-primary-dark-2: var(--lb-hero-hover);
+
+  --el-color-success: #16a34a;
+  --el-color-success-light-3: #22c55e;
+  --el-color-success-light-5: #4ade80;
+  --el-color-success-light-7: #86efac;
+  --el-color-success-light-8: #bbf7d0;
+  --el-color-success-light-9: #dcfce7;
+  --el-color-success-dark-2: #15803d;
+
+  --el-color-warning: #d97706;
+  --el-color-warning-light-3: #f59e0b;
+  --el-color-warning-light-5: #fbbf24;
+  --el-color-warning-light-7: #fcd34d;
+  --el-color-warning-light-8: #fde68a;
+  --el-color-warning-light-9: #fef3c7;
+  --el-color-warning-dark-2: #b45309;
+
+  --el-color-danger: var(--lb-destructive);
+  --el-color-danger-light-3: #f87171;
+  --el-color-danger-light-5: #fca5a5;
+  --el-color-danger-light-7: #fecaca;
+  --el-color-danger-light-8: #fee2e2;
+  --el-color-danger-light-9: #fef2f2;
+  --el-color-danger-dark-2: #dc2626;
+
+  --el-color-error: var(--el-color-danger);
+
+  --el-color-info: var(--lb-muted-foreground);
+
+  --el-text-color-primary: var(--lb-foreground);
+  --el-text-color-regular: var(--lb-body);
+  --el-text-color-secondary: var(--lb-muted-foreground);
+  --el-text-color-placeholder: #94a3b8;
+  --el-text-color-disabled: #cbd5e1;
+
+  --el-bg-color: var(--lb-background);
+  --el-bg-color-page: var(--lb-surface);
+  --el-fill-color-blank: var(--lb-card);
+  --el-fill-color: var(--lb-muted);
+  --el-fill-color-light: var(--lb-secondary);
+  --el-fill-color-lighter: var(--lb-nav-active);
+  --el-fill-color-extra-light: var(--lb-nav-active);
+  --el-fill-color-dark: #e2e8f0;
+  --el-fill-color-darker: #cbd5e1;
+
+  --el-border-color: var(--lb-border);
+  --el-border-color-light: #f1f5f9;
+  --el-border-color-lighter: #f8fafc;
+  --el-border-color-extra-light: #f8fafc;
+  --el-border-color-dark: #cbd5e1;
+  --el-border-color-darker: #94a3b8;
+
+  --el-border-radius-base: var(--lb-radius);
+  --el-border-radius-small: calc(var(--lb-radius) - 2px);
+  --el-border-radius-round: 9999px;
+
+  --el-font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --el-font-size-extra-large: 1.25rem;
+  --el-font-size-large: 1rem;
+  --el-font-size-medium: 0.9375rem;
+  --el-font-size-base: 0.875rem;
+  --el-font-size-small: 0.8125rem;
+  --el-font-size-extra-small: 0.75rem;
+
+  --el-box-shadow: 0 1px 2px 0 rgb(15 23 42 / 0.06);
+  --el-box-shadow-light: 0 1px 2px 0 rgb(15 23 42 / 0.04);
+  --el-box-shadow-dark: 0 4px 12px rgb(15 23 42 / 0.12);
+
+  --el-disabled-bg-color: var(--lb-muted);
+  --el-disabled-text-color: var(--lb-muted-foreground);
+  --el-disabled-border-color: var(--lb-border);
+
+  --el-overlay-color-lighter: rgba(2, 6, 23, 0.45);
+  --el-overlay-color: rgba(2, 6, 23, 0.65);
+  --el-overlay-color-dark: rgba(2, 6, 23, 0.75);
+
+  --el-mask-color: rgba(255, 255, 255, 0.65);
+  --el-mask-color-extra-light: rgba(255, 255, 255, 0.35);
+}
+
+html.dark {
+  --el-color-primary-light-3: #60a5fa;
+  --el-color-primary-light-5: #93c5fd;
+  --el-color-primary-light-7: #bfdbfe;
+  --el-color-primary-light-8: #dbeafe;
+  --el-color-primary-light-9: rgba(59, 130, 246, 0.15);
+  --el-color-primary-dark-2: #2563eb;
+
+  --el-text-color-placeholder: #64748b;
+  --el-text-color-disabled: #475569;
+
+  --el-fill-color-dark: #334155;
+  --el-fill-color-darker: #1e293b;
+  --el-border-color-light: #334155;
+  --el-border-color-lighter: #1e293b;
+  --el-border-color-extra-light: #1e293b;
+  --el-border-color-dark: #475569;
+  --el-border-color-darker: #64748b;
+
+  --el-mask-color: rgba(2, 6, 23, 0.75);
+  --el-mask-color-extra-light: rgba(2, 6, 23, 0.45);
+}

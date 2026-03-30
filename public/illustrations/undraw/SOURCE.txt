@@ -1,0 +1,11 @@
+Illustrations from unDraw (https://undraw.co/illustrations), MIT License.
+Brand primary strokes/fills normalized to #2563eb where applicable.
+
+Hero mapping:
+- house-searching.svg — Buy (browsing homes)
+- moving.svg — Rent / relocation
+- working-together.svg — PG / co-living (group + laptop scene)
+- in-the-office.svg — Commercial
+- adventure-map.svg — Plots & land
+
+Legacy files in this folder (buy-house, apartment-rent, etc.) are unused by the hero but kept for reference.

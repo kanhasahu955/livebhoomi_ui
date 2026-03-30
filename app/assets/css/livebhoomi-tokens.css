@@ -1,0 +1,76 @@
+/**
+ * LiveBhoomi.com design tokens — values aligned with production
+ * https://livebhoomi.com/ (`:root` HSL from built CSS, converted to hex for broad support).
+ * Dark mode matches the site’s `.dark` token set.
+ */
+:root {
+  --lb-background: #ffffff;
+  --lb-foreground: #020617;
+  --lb-card: #ffffff;
+  --lb-card-foreground: #020617;
+  /* hsl(221.2 83.2% 53.3%) */
+  --lb-primary: #2563eb;
+  /* hsl(210 40% 98%) */
+  --lb-primary-foreground: #f8fafc;
+  /* hsl(210 40% 96%) */
+  --lb-secondary: #f1f5f9;
+  --lb-secondary-foreground: #020617;
+  --lb-muted: #f1f5f9;
+  /* hsl(215.4 16.3% 46.9%) */
+  --lb-muted-foreground: #64748b;
+  --lb-accent-surface: #f1f5f9;
+  --lb-accent-foreground: #020617;
+  /** Highlight / “Faster”-style emphasis — lighter primary */
+  --lb-accent-text: #3b82f6;
+  /* hsl(0 84.2% 60.2%) */
+  --lb-destructive: #ef4444;
+  --lb-destructive-foreground: #f8fafc;
+  /* hsl(214.3 31.8% 91.4%) */
+  --lb-border: #e2e8f0;
+  --lb-input: #e2e8f0;
+  --lb-ring: #2563eb;
+  --lb-radius: 0.5rem;
+  /** Soft primary wash — nav / active chips */
+  --lb-nav-active: #eff6ff;
+  /** Body copy — common slate on marketing pages */
+  --lb-body: #4b5563;
+  /** Page chrome behind cards */
+  --lb-surface: #f8fafc;
+  --lb-hero-hover: #1d4ed8;
+
+  /* Aliases for theme.config.ts / `themeColorVars()` — mirror semantic names */
+  --lb-hero: var(--lb-primary);
+  --lb-accent: var(--lb-accent-text);
+  --lb-heading: var(--lb-foreground);
+}
+
+html.dark,
+.dark {
+  --lb-background: #020617;
+  --lb-foreground: #f8fafc;
+  --lb-card: #020617;
+  --lb-card-foreground: #f8fafc;
+  /* hsl(217.2 91.2% 59.8%) */
+  --lb-primary: #3b82f6;
+  --lb-primary-foreground: #020617;
+  --lb-secondary: #1e293b;
+  --lb-secondary-foreground: #f8fafc;
+  --lb-muted: #1e293b;
+  --lb-muted-foreground: #94a3b8;
+  --lb-accent-surface: #1e293b;
+  --lb-accent-foreground: #f8fafc;
+  --lb-accent-text: #60a5fa;
+  --lb-destructive: #f87171;
+  --lb-destructive-foreground: #020617;
+  --lb-border: #1e293b;
+  --lb-input: #1e293b;
+  --lb-ring: #3b82f6;
+  --lb-nav-active: rgba(59, 130, 246, 0.12);
+  --lb-body: #cbd5e1;
+  --lb-surface: #0f172a;
+  --lb-hero-hover: #60a5fa;
+
+  --lb-hero: var(--lb-primary);
+  --lb-accent: var(--lb-accent-text);
+  --lb-heading: var(--lb-foreground);
+}
