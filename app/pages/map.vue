@@ -48,7 +48,7 @@ function selectArea(area: MapPopularArea) {
 </script>
 
 <template>
-  <div class="min-h-[100dvh] bg-surface">
+  <div class="min-h-[100dvh] w-full min-w-0 overflow-x-clip bg-surface">
     <div
       class="relative overflow-hidden border-b border-white/10"
       style="background: linear-gradient(125deg, var(--lb-primary) 0%, var(--lb-hero-hover) 48%, var(--lb-primary) 100%)"

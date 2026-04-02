@@ -46,6 +46,10 @@ export default defineNuxtConfig({
     { path: '~/components/layout', pathPrefix: false },
     { path: '~/components/home', pathPrefix: false },
     { path: '~/components/map', pathPrefix: false },
+    { path: '~/components/property', pathPrefix: false },
+    { path: '~/components/pg', pathPrefix: false },
+    { path: '~/components/commercial', pathPrefix: false },
+    { path: '~/components/shared', pathPrefix: false },
   ],
 
   /** nuxt-site-config — canonical URL/name for sitemap + schema.org */
@@ -150,8 +154,13 @@ export default defineNuxtConfig({
         cookieName: 'livebhoomi_token',
         loginPath: '/login',
         homePath: '/',
-        publicPaths: ['/login'],
+        publicPaths: ['/login', '/register'],
       },
+      /** Google AdSense: `ca-pub-xxxxxxxx` — optional slot for layout banner */
+      adsenseClientId: process.env.NUXT_PUBLIC_ADSENSE_CLIENT_ID || '',
+      adsenseSlotBanner: process.env.NUXT_PUBLIC_ADSENSE_SLOT_BANNER || '',
+      /** Google Analytics 4 / Ads measurement ID: `G-XXXXXXXX` or `AW-XXXXXXXX` */
+      gaMeasurementId: process.env.NUXT_PUBLIC_GA_MEASUREMENT_ID || '',
     },
   },
 

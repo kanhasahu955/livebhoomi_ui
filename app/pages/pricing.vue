@@ -404,7 +404,7 @@ const showAnnualSave = computed(() => billing.value === 'annual')
       </section>
 
       <section
-        class="relative mt-16 overflow-hidden rounded-3xl border border-hero/20 bg-gradient-to-br from-hero/10 via-card to-indigo-500/10 p-10 text-center shadow-[0_24px_60px_-24px_rgba(37,99,235,0.35)] dark:from-hero/15 dark:via-card dark:to-violet-950/30 sm:mt-20 sm:p-12"
+        class="relative mt-16 overflow-hidden rounded-2xl border border-hero/20 bg-gradient-to-br from-hero/10 via-card to-indigo-500/10 p-6 text-center shadow-[0_24px_60px_-24px_rgba(37,99,235,0.35)] dark:from-hero/15 dark:via-card dark:to-violet-950/30 sm:mt-20 sm:rounded-3xl sm:p-10 md:p-12"
       >
         <div
           class="pointer-events-none absolute inset-0 opacity-30"

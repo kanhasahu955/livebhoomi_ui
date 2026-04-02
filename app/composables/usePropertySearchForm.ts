@@ -16,6 +16,8 @@ export type UsePropertySearchFormOptions = {
   syncFromRoute?: boolean
   /** When syncing, used if `intent` is missing from the query (home hero defaults to PG). */
   defaultIntentFromRoute?: SearchIntent
+  /** Fixed intent — e.g. `/rent` always searches rentals; route `intent` is ignored. */
+  lockedIntent?: SearchIntent
 }
 
 export function usePropertySearchForm(
@@ -23,7 +25,7 @@ export function usePropertySearchForm(
 ) {
   const route = useRoute()
 
-  const intent = ref<SearchIntent>('pg')
+  const intent = ref<SearchIntent>(options.lockedIntent ?? 'pg')
   const city = ref('hyderabad')
   const locality = ref('')
   const propertyType = ref('')
@@ -37,7 +39,7 @@ export function usePropertySearchForm(
       defaultIntent: options.defaultIntentFromRoute,
     })
     suppressIntentDependentReset.value = true
-    intent.value = p.intent
+    intent.value = options.lockedIntent ?? p.intent
     city.value = p.city
     locality.value = p.locality
     propertyType.value = p.propertyType

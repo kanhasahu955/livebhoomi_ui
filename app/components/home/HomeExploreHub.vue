@@ -27,7 +27,7 @@ const items: HubItem[] = [
   },
   {
     title: 'PG & co-living',
-    description: 'Room types, meal plans, and safer stays for students & professionals.',
+    description: 'PG hub, co-living spaces, and hostels — room types and monthly budgets.',
     to: '/pg',
     accent: 'from-amber-500/14 via-orange-500/10 to-transparent dark:from-amber-400/15',
   },

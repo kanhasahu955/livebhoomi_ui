@@ -28,6 +28,30 @@
     background-color: var(--lb-surface);
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /** SPA: avoid blank white flash between routes before layout paints */
+  body {
+    background-color: var(--lb-surface);
+    overflow-x: clip;
+    min-width: 0;
+  }
+
+  #__nuxt {
+    min-height: 100dvh;
+    background-color: var(--lb-surface);
+    overflow-x: clip;
+    min-width: 0;
+  }
+
+  /** Prevent replaced media from forcing horizontal scroll on narrow viewports */
+  img,
+  video,
+  canvas {
+    max-width: 100%;
+    height: auto;
   }
 
   ::selection {

@@ -112,3 +112,21 @@ html.dark {
   --el-mask-color: rgba(2, 6, 23, 0.75);
   --el-mask-color-extra-light: rgba(2, 6, 23, 0.45);
 }
+
+/* Narrow viewports: dialogs / message boxes must not exceed the screen */
+@media (max-width: 639px) {
+  .el-dialog {
+    width: min(100%, calc(100vw - 1.5rem)) !important;
+    max-width: 100%;
+    margin: 0.75rem auto !important;
+  }
+
+  .el-message-box {
+    width: min(100%, calc(100vw - 1.5rem)) !important;
+    max-width: 100%;
+  }
+}
+
+.el-select {
+  max-width: 100%;
+}

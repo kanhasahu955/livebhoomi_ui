@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <div class="mx-auto w-full min-w-0 max-w-7xl overflow-x-clip px-4 py-12 sm:px-6 lg:px-8">
     <h1 class="text-2xl font-bold text-heading">
       Manage listings
     </h1>

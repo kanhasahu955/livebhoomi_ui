@@ -73,7 +73,7 @@ const cols = [
         </div>
       </div>
       <div
-        class="mt-10 flex flex-col gap-2 border-t border-border pt-8 text-center text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:text-left"
+        class="mt-10 flex flex-col gap-2 border-t border-border px-1 pt-8 text-center text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:px-0 sm:text-left"
       >
         <p>© {{ year }} Live Bhoomi. All rights reserved.</p>
         <p>Property listings are indicative; verify with sellers before transacting.</p>

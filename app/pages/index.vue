@@ -20,7 +20,7 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="w-full overflow-x-hidden">
+  <div class="w-full min-w-0 overflow-x-clip">
     <HeroSection />
 
     <HomeStatsStrip />

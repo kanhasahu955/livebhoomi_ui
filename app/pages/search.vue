@@ -79,7 +79,7 @@ const subheadline = computed(() => {
 
 <template>
   <section
-    class="hero-surface relative isolate min-h-[min(100svh,56rem)] flex flex-col rounded-b-[1.75rem] text-white sm:rounded-b-[2.25rem]"
+    class="hero-surface relative isolate flex min-h-[min(100svh,56rem)] w-full min-w-0 flex-col overflow-x-clip rounded-b-[1.75rem] text-white sm:rounded-b-[2.25rem]"
   >
     <div
       class="pointer-events-none absolute inset-x-0 top-0 z-[2] h-32 bg-gradient-to-b from-white/12 to-transparent"
@@ -171,7 +171,7 @@ const subheadline = computed(() => {
                 class="flex min-h-[3.25rem] w-full flex-col overflow-hidden rounded-2xl bg-white shadow-lg shadow-slate-900/15 ring-1 ring-slate-200/80 sm:min-h-[3.5rem] sm:flex-row sm:items-stretch sm:rounded-full sm:p-1"
               >
                 <div
-                  class="flex flex-1 items-center border-b border-slate-100 px-3 py-2.5 sm:border-b-0 sm:py-2 sm:pl-4"
+                  class="flex min-w-0 flex-1 items-center border-b border-slate-100 px-3 py-2.5 sm:border-b-0 sm:py-2 sm:pl-4"
                 >
                   <span class="mr-1 hidden text-xs font-semibold uppercase tracking-wide text-muted sm:mr-2 sm:inline">
                     City

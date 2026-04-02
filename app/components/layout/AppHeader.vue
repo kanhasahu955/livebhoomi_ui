@@ -30,16 +30,18 @@ const navGroups: NavGroup[] = [
     defaultTo: '/rent',
     children: [
       { label: 'Flats on rent', to: '/rent' },
-      { label: 'PG / Hostel', to: '/pg' },
-      { label: 'Co-living', to: '/pg' },
+      { label: 'PG hub', to: '/pg' },
+      { label: 'Co-living', to: '/co/living' },
+      { label: 'Hostels', to: '/pg/hostel' },
     ],
   },
   {
     label: 'Commercial',
     defaultTo: '/commercial',
     children: [
-      { label: 'Office space', to: '/commercial' },
-      { label: 'Retail / shop', to: '/commercial' },
+      { label: 'Commercial hub', to: '/commercial' },
+      { label: 'Office space', to: '/commercial/office' },
+      { label: 'Retail / warehouse', to: '/commercial' },
     ],
   },
   {
@@ -77,7 +79,7 @@ const headerBarClass = computed(() =>
 )
 
 const headerRowClass =
-  'mx-auto flex h-14 max-w-7xl items-center px-4 sm:h-[3.75rem] sm:px-6 lg:px-8'
+  'mx-auto flex h-14 min-w-0 w-full max-w-7xl items-center gap-1 px-3 sm:h-[3.75rem] sm:gap-2 sm:px-6 lg:px-8'
 
 const navTriggerClass =
   'group inline-flex cursor-pointer items-center gap-1 rounded-full px-3 py-2 text-sm font-semibold tracking-tight text-white/95 transition duration-200 hover:bg-white/15 hover:text-white xl:px-3.5'
@@ -194,6 +196,7 @@ const mobileQuickLinks = [
         <div
           class="relative z-10 ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2.5"
         >
+          <AppNotificationBell :popper-class="ddPopperClass" />
           <ColorModeToggle :popper-class="ddPopperClass" />
           <button
             type="button"
@@ -216,6 +219,13 @@ const mobileQuickLinks = [
           >
             Post Property
             <span class="lb-badge-free ml-1.5">Free</span>
+          </button>
+          <button
+            type="button"
+            class="lb-link-underline-light hidden sm:inline text-sm font-semibold"
+            @click="go('/register')"
+          >
+            Sign up
           </button>
           <button
             type="button"
@@ -358,11 +368,18 @@ const mobileQuickLinks = [
               <span class="lb-badge-free ml-2">Free</span>
             </NuxtLink>
             <NuxtLink
+              to="/register"
+              class="lb-btn-surface w-full justify-center py-3 sm:w-auto"
+              @click="mobileOpen = false"
+            >
+              Sign up
+            </NuxtLink>
+            <NuxtLink
               to="/login"
               class="lb-btn-primary w-full justify-center py-3 sm:w-auto"
               @click="mobileOpen = false"
             >
-              Login
+              Log in
             </NuxtLink>
           </div>
         </nav>
@@ -436,5 +453,10 @@ html.dark .lb-dd-popper.el-popper,
 }
 .lb-dd-popper--hero .el-dropdown-menu__item--divided:before {
   background-color: rgb(255 255 255 / 0.12);
+}
+
+.lb-notif-popper.el-popper {
+  padding: 0;
+  overflow: hidden;
 }
 </style>
